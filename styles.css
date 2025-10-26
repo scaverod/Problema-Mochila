@@ -97,6 +97,7 @@ body {
 
 .section {
     text-align: left;
+    position: relative;
 }
 
 .section h2 {
@@ -173,6 +174,87 @@ body {
     font-size: 0.75rem;
     color: var(--text-light);
     font-weight: 400;
+}
+
+/* Selector de Temas */
+.theme-selector-btn {
+    width: 100%;
+    padding: 12px 20px;
+    background: white;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.theme-selector-btn:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+}
+
+.theme-selector-btn .dropdown-arrow {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    transition: transform 0.3s ease;
+}
+
+.theme-selector-btn.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.theme-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.theme-dropdown.hidden {
+    display: none;
+}
+
+.theme-option {
+    padding: 12px 20px;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--text-dark);
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.theme-option:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+.theme-option:first-child {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.theme-option:last-child {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 /* Botones de Dificultad más pequeños */

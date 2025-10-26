@@ -5,6 +5,7 @@
 const STATE = {
     selectedType: null,
     selectedDifficulty: null,
+    selectedTheme: 'random',
     mode: null,
     difficulty: null,
     items: [],
@@ -168,6 +169,37 @@ function setupEventListeners() {
         btn.addEventListener('click', selectDifficulty);
     });
 
+    // Theme selector
+    const themeSelectorBtn = document.getElementById('theme-selector-btn');
+    const themeDropdown = document.getElementById('theme-dropdown');
+    if (themeSelectorBtn && themeDropdown) {
+        themeSelectorBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            themeDropdown.classList.toggle('hidden');
+            themeSelectorBtn.classList.toggle('active');
+        });
+
+        // Use event delegation for theme options
+        themeDropdown.addEventListener('click', (e) => {
+            const themeOption = e.target.closest('.theme-option');
+            if (themeOption) {
+                e.stopPropagation();
+                STATE.selectedTheme = themeOption.dataset.theme;
+                document.getElementById('theme-display').textContent = themeOption.textContent;
+                themeDropdown.classList.add('hidden');
+                themeSelectorBtn.classList.remove('active');
+            }
+        });
+    }
+
+    // Close theme dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (themeSelectorBtn && themeDropdown && !themeSelectorBtn.contains(e.target) && !themeDropdown.contains(e.target)) {
+            themeDropdown.classList.add('hidden');
+            themeSelectorBtn.classList.remove('active');
+        }
+    });
+
     document.getElementById('start-btn').addEventListener('click', startGame);
     document.getElementById('help-button').addEventListener('click', showInfo);
     
@@ -290,6 +322,18 @@ function generateProblem(type) {
     const numItems = Math.floor(Math.random() * 5) + 8; // 8-12 items
     const maxWeight = Math.floor(Math.random() * 15) + 20; // 20-35 peso máximo
 
+    // Mapeo de temas seleccionables a nombres de problemas
+    const themeMap = {
+        'random': null, // null significa elegir al azar
+        'office': 'Oficina',
+        'shopping': 'Compra',
+        'travel': 'Viaje',
+        'gaming': 'Gaming',
+        'tech': 'Tecnología',
+        'cooking': 'Cocina',
+        'library': 'Biblioteca'
+    };
+
     // Definir temáticas por nombre de problema
     const themesByName = {
         'Tecnología': TECH_ITEMS,
@@ -300,6 +344,9 @@ function generateProblem(type) {
         'Música': MUSIC_ITEMS,
         'Viaje': TRAVEL_ITEMS,
         'Oficina': OFFICE_ITEMS,
+        'Compra': CLOTHING_ITEMS,
+        'Cocina': FOOD_ITEMS,
+        'Biblioteca': TECH_ITEMS,
         'Frutas': FOOD_ITEMS,
         'Comida Rápida': FOOD_ITEMS,
         'Postre': FOOD_ITEMS,
@@ -309,11 +356,28 @@ function generateProblem(type) {
     };
 
     // Nombres de problemas según tipo
-    const binaryNames = ['Tecnología', 'Gaming', 'Ropa', 'Camping', 'Deportes', 'Música', 'Viaje', 'Oficina'];
+    const binaryNames = ['Tecnología', 'Gaming', 'Ropa', 'Camping', 'Deportes', 'Música', 'Viaje', 'Oficina', 'Compra', 'Cocina', 'Biblioteca'];
     const multipleNames = ['Frutas', 'Comida Rápida', 'Postre', 'Bebidas', 'Snacks', 'Dulces'];
     
+    let problemName;
     const namesArray = type === 'binary' ? binaryNames : multipleNames;
-    const problemName = namesArray[Math.floor(Math.random() * namesArray.length)];
+    
+    // Si el tema es "random" o no está mapeado, elegir al azar
+    if (STATE.selectedTheme === 'random' || !themeMap[STATE.selectedTheme]) {
+        problemName = namesArray[Math.floor(Math.random() * namesArray.length)];
+    } else {
+        // Usar el tema seleccionado
+        const selectedThemeName = themeMap[STATE.selectedTheme];
+        // Verificar que el tema seleccionado está disponible para este tipo
+        if (type === 'binary' && binaryNames.includes(selectedThemeName)) {
+            problemName = selectedThemeName;
+        } else if (type === 'multiple' && multipleNames.includes(selectedThemeName)) {
+            problemName = selectedThemeName;
+        } else {
+            // Si el tema seleccionado no es válido para este tipo, elegir al azar
+            problemName = namesArray[Math.floor(Math.random() * namesArray.length)];
+        }
+    }
     
     // Obtener la temática correcta según el nombre
     const itemsTheme = themesByName[problemName];
