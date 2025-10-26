@@ -224,6 +224,22 @@ function updateStartButton() {
 
 function showInfo() {
     switchScreen('info-screen');
+    
+    // Setup scroll indicator
+    setTimeout(() => {
+        const infoContainer = document.querySelector('.info-container');
+        const scrollIndicator = document.getElementById('scroll-indicator');
+        
+        if (infoContainer && scrollIndicator) {
+            // Hide on any scroll
+            const hideOnScroll = () => {
+                scrollIndicator.classList.add('hidden');
+                infoContainer.removeEventListener('scroll', hideOnScroll);
+            };
+            
+            infoContainer.addEventListener('scroll', hideOnScroll);
+        }
+    }, 100);
 }
 
 function backToMenu() {

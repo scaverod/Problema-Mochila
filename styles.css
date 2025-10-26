@@ -284,6 +284,7 @@ body {
     margin-bottom: 25px;
     font-size: 2rem;
     text-align: center;
+    padding-top: 15px;
     padding-bottom: 15px;
     border-bottom: 2px solid var(--primary-color);
 }
@@ -327,6 +328,39 @@ body {
     text-decoration: underline;
 }
 
+.info-footer {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 2px solid var(--border-color);
+    text-align: center;
+}
+
+.info-footer p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.docs-btn {
+    display: inline-block;
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #f97316, #fb923c);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+}
+
+.docs-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+    color: white;
+}
+
 .back-btn {
     margin-top: 30px;
     padding: 12px 30px;
@@ -345,8 +379,8 @@ body {
 
 .back-btn-info {
     position: absolute;
-    top: 35px;
-    right: 40px;
+    top: 15px;
+    right: 15px;
     background: var(--danger-color);
     color: white;
     border: none;
@@ -362,6 +396,37 @@ body {
 .back-btn-info:hover {
     background: #dc2626;
     transform: scale(1.05);
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    z-index: 100;
+}
+
+.scroll-indicator.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.scroll-indicator .arrow {
+    display: inline-block;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(8px);
+    }
 }
 
 /* PANTALLA DE JUEGO */
@@ -1218,7 +1283,7 @@ body {
 /* BOTÓN DE AYUDA FLOTANTE */
 .help-button {
     position: fixed;
-    bottom: 2rem;
+    bottom: 7rem;
     right: 2rem;
     width: 56px;
     height: 56px;
