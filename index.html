@@ -65,7 +65,7 @@
     <!-- MENÚ PRINCIPAL -->
     <div id="menu-screen" class="screen active">
         <div class="menu-container">
-            <h1 class="title">🎒 Problema de la Mochila</h1>
+            <h1 class="title">🎒 El Problema de la Mochila</h1>
             <p class="subtitle">Selecciona items que maximicen tu beneficio sin exceder el peso máximo</p>
             
             <div class="menu-content">
@@ -118,7 +118,7 @@
 
                 <div class="section">
                     <h2 style="font-size: 0.95rem; margin-bottom: 10px;">Ámbito del Problema</h2>
-                    <button id="theme-selector-btn" class="theme-selector-btn">
+                    <button id="theme-selector-btn" class="theme-selector-btn" disabled title="Selecciona un tipo de problema primero">
                         <span id="theme-display">🎲 Al azar</span>
                         <span class="dropdown-arrow">▼</span>
                     </button>
@@ -131,6 +131,7 @@
                         <button class="theme-option" data-theme="tech">💻 Tecnología</button>
                         <button class="theme-option" data-theme="cooking">🍳 Cocina</button>
                         <button class="theme-option" data-theme="library">📚 Biblioteca</button>
+                        <button class="theme-option" data-theme="sports">⚽ Deportes</button>
                     </div>
                 </div>
 
@@ -204,6 +205,9 @@
                         </button>
                         <button class="sort-btn" data-sort="weight" data-direction="asc" title="Ordenar por peso">
                             Peso ↑
+                        </button>
+                        <button id="toggle-ratios-btn" class="toggle-ratios-btn" title="Mostrar/Ocultar ratios B/P">
+                            👁️ Ratios
                         </button>
                     </div>
                 </div>

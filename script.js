@@ -16,7 +16,8 @@ const STATE = {
     timerInterval: null,
     sortType: 'benefit',
     sortDirection: 'desc', // 'asc' o 'desc'
-    displayedItems: []
+    displayedItems: [],
+    showRatios: false // Nuevo: controlar visibilidad de ratios B/P
 };
 
 // Items temáticos con emojis que coinciden
@@ -137,6 +138,58 @@ const OFFICE_ITEMS = [
     { name: 'Planta Oficina', emoji: '🌱' }
 ];
 
+const RYANAIR_ITEMS = [
+    { name: 'Pasaporte', emoji: '🛂' },
+    { name: 'Billete Avión', emoji: '🎟️' },
+    { name: 'Cargador Teléfono', emoji: '🔌' },
+    { name: 'Auriculares', emoji: '🎧' },
+    { name: 'Libro', emoji: '📚' },
+    { name: 'Botella Agua Vacía', emoji: '🧴' },
+    { name: 'Gafas Sol', emoji: '😎' },
+    { name: 'Mascarilla', emoji: '😷' },
+    { name: 'Caramelos', emoji: '🍬' },
+    { name: 'Neceser Mínimo', emoji: '🧴' }
+];
+
+const REY_EMERITO_ITEMS = [
+    { name: 'Elefante', emoji: '🐘' },
+    { name: 'Corona Real', emoji: '👑' },
+    { name: 'Turbante Dorado', emoji: '🧢' },
+    { name: 'Pistola Ceremonial', emoji: '🔫' },
+    { name: 'Diamante Azul', emoji: '💎' },
+    { name: 'Espada Medieval', emoji: '⚔️' },
+    { name: 'Manto Real', emoji: '🧣' },
+    { name: 'Moneda de Oro', emoji: '🪙' },
+    { name: 'Cetro Dorado', emoji: '✨' },
+    { name: 'Pergamino Real', emoji: '📜' }
+];
+
+const CR7_ITEMS = [
+    { name: 'Pelota de Oro', emoji: '⚽' },
+    { name: 'Botines Nike', emoji: '👟' },
+    { name: 'Medalla', emoji: '🏅' },
+    { name: 'Reloj Rolex', emoji: '⌚' },
+    { name: 'Anillo Diamante', emoji: '💎' },
+    { name: 'Camiseta Histórica', emoji: '👕' },
+    { name: 'Espray Pintauñas', emoji: '💅' },
+    { name: 'Gafas Prada', emoji: '😎' },
+    { name: 'Cadena Oro', emoji: '⛓️' },
+    { name: 'Trofeo Balón de Oro', emoji: '🏆' }
+];
+
+const FLORENTINO_ITEMS = [
+    { name: 'Cristiano Ronaldo', emoji: '⚽' },
+    { name: 'Zinedine Zidane', emoji: '⚽' },
+    { name: 'Alfredo Di Stéfano', emoji: '⚽' },
+    { name: 'Ferenc Puskás', emoji: '⚽' },
+    { name: 'Pelé (Brasil)', emoji: '⚽' },
+    { name: 'Karim Benzema', emoji: '⚽' },
+    { name: 'Luka Modric', emoji: '⚽' },
+    { name: 'Sergio Ramos', emoji: '⚽' },
+    { name: 'Raúl González', emoji: '⚽' },
+    { name: 'David Beckham', emoji: '⚽' }
+];
+
 const ICONS = ['🎁', '📱', '💻', '📚', '⌚', '🎧', '🎮', '📷', '💎', '🔧', '🎨', '⚽', '🧸', '🏀', '📺'];
 
 const DIFFICULTY_CONFIG = {
@@ -234,7 +287,68 @@ function selectType(e) {
     document.querySelectorAll('.type-btn').forEach(btn => btn.classList.remove('active'));
     e.target.closest('.type-btn').classList.add('active');
     STATE.selectedType = e.target.closest('.type-btn').dataset.type;
+    
+    // Habilitar el selector de temas y actualizar opciones disponibles
+    updateThemeSelector();
+    
     updateStartButton();
+}
+
+function updateThemeSelector() {
+    const themeSelectorBtn = document.getElementById('theme-selector-btn');
+    const themeDropdown = document.getElementById('theme-dropdown');
+    
+    if (!STATE.selectedType) {
+        // Deshabilitar si no hay tipo seleccionado
+        themeSelectorBtn.disabled = true;
+        themeSelectorBtn.title = 'Selecciona un tipo de problema primero';
+        return;
+    }
+    
+    // Habilitar el selector
+    themeSelectorBtn.disabled = false;
+    themeSelectorBtn.title = 'Selecciona un ámbito para el problema';
+    
+    // Definir opciones según el tipo de problema
+    const binaryThemes = [
+        { theme: 'random', label: '🎲 Al azar', show: true },
+        { theme: 'office', label: '🏢 Oficina', show: true },
+        { theme: 'shopping', label: '🛍️ Compra', show: true },
+        { theme: 'travel', label: '✈️ Viaje', show: true },
+        { theme: 'gaming', label: '🎮 Gaming', show: true },
+        { theme: 'tech', label: '💻 Tecnología', show: true },
+        { theme: 'cooking', label: '🍳 Cocina', show: true },
+        { theme: 'library', label: '📚 Biblioteca', show: true },
+        { theme: 'sports', label: '⚽ Deportes', show: true }
+    ];
+    
+    const multipleThemes = [
+        { theme: 'random', label: '🎲 Al azar', show: true },
+        { theme: 'office', label: '🏢 Oficina', show: false },
+        { theme: 'shopping', label: '🛍️ Compra', show: false },
+        { theme: 'travel', label: '✈️ Viaje', show: false },
+        { theme: 'gaming', label: '🎮 Gaming', show: false },
+        { theme: 'tech', label: '💻 Tecnología', show: false },
+        { theme: 'cooking', label: '🍳 Cocina', show: true },
+        { theme: 'library', label: '📚 Biblioteca', show: false },
+        { theme: 'sports', label: '⚽ Deportes', show: false }
+    ];
+    
+    const themesToShow = STATE.selectedType === 'binary' ? binaryThemes : multipleThemes;
+    
+    // Actualizar opciones en el dropdown
+    document.querySelectorAll('.theme-option').forEach((option, index) => {
+        if (index < themesToShow.length) {
+            const themeConfig = themesToShow[index];
+            if (themeConfig.show) {
+                option.style.display = 'flex';
+                option.dataset.theme = themeConfig.theme;
+                option.textContent = themeConfig.label;
+            } else {
+                option.style.display = 'none';
+            }
+        }
+    });
 }
 
 function selectDifficulty(e) {
@@ -289,6 +403,7 @@ function startGame() {
     STATE.gameActive = true;
     STATE.timeRemaining = DIFFICULTY_CONFIG[STATE.selectedDifficulty].time;
     STATE.gameStartTime = Date.now();
+    STATE.showRatios = false; // Ratios ocultos por defecto
 
     // Mostrar pantalla de juego
     switchScreen('game-screen');
@@ -331,7 +446,8 @@ function generateProblem(type) {
         'gaming': 'Gaming',
         'tech': 'Tecnología',
         'cooking': 'Cocina',
-        'library': 'Biblioteca'
+        'library': 'Biblioteca',
+        'sports': 'Deportes'
     };
 
     // Definir temáticas por nombre de problema
@@ -352,12 +468,20 @@ function generateProblem(type) {
         'Postre': FOOD_ITEMS,
         'Bebidas': FOOD_ITEMS,
         'Snacks': FOOD_ITEMS,
-        'Dulces': FOOD_ITEMS
+        'Dulces': FOOD_ITEMS,
+        'Ryanair': RYANAIR_ITEMS,
+        'Rey Emérito': REY_EMERITO_ITEMS,
+        'CR7': CR7_ITEMS,
+        'Florentino': FLORENTINO_ITEMS
     };
 
     // Nombres de problemas según tipo
     const binaryNames = ['Tecnología', 'Gaming', 'Ropa', 'Camping', 'Deportes', 'Música', 'Viaje', 'Oficina', 'Compra', 'Cocina', 'Biblioteca'];
     const multipleNames = ['Frutas', 'Comida Rápida', 'Postre', 'Bebidas', 'Snacks', 'Dulces'];
+    
+    // Variaciones especiales para temas
+    const deportesVariations = ['Deportes', 'CR7', 'Florentino'];
+    const viajeVariations = ['Viaje', 'Ryanair', 'Rey Emérito'];
     
     let problemName;
     const namesArray = type === 'binary' ? binaryNames : multipleNames;
@@ -365,11 +489,29 @@ function generateProblem(type) {
     // Si el tema es "random" o no está mapeado, elegir al azar
     if (STATE.selectedTheme === 'random' || !themeMap[STATE.selectedTheme]) {
         problemName = namesArray[Math.floor(Math.random() * namesArray.length)];
+        
+        // Si el nombre es "Deportes", 30% de probabilidad de que sea CR7 o Florentino
+        if (problemName === 'Deportes' && Math.random() < 0.3) {
+            problemName = deportesVariations[Math.floor(Math.random() * (deportesVariations.length - 1)) + 1];
+        }
+        // Si el nombre es "Viaje", 30% de probabilidad de que sea Ryanair o Rey Emérito
+        else if (problemName === 'Viaje' && Math.random() < 0.3) {
+            problemName = viajeVariations[Math.floor(Math.random() * (viajeVariations.length - 1)) + 1];
+        }
     } else {
         // Usar el tema seleccionado
         const selectedThemeName = themeMap[STATE.selectedTheme];
-        // Verificar que el tema seleccionado está disponible para este tipo
-        if (type === 'binary' && binaryNames.includes(selectedThemeName)) {
+        
+        // Si se selecciona "Deportes", puede ser Deportes, CR7 o Florentino
+        if (selectedThemeName === 'Deportes') {
+            problemName = deportesVariations[Math.floor(Math.random() * deportesVariations.length)];
+        }
+        // Si se selecciona "Viaje", puede ser Viaje, Ryanair o Rey Emérito
+        else if (selectedThemeName === 'Viaje') {
+            problemName = viajeVariations[Math.floor(Math.random() * viajeVariations.length)];
+        }
+        // Para otros temas seleccionados
+        else if (type === 'binary' && binaryNames.includes(selectedThemeName)) {
             problemName = selectedThemeName;
         } else if (type === 'multiple' && multipleNames.includes(selectedThemeName)) {
             problemName = selectedThemeName;
@@ -388,9 +530,39 @@ function generateProblem(type) {
     // Tomar solo los items necesarios
     const selectedItems = shuffledItems.slice(0, numItems);
 
+    // Configuración especial de pesos según el tema
+    let getWeight = (problemName) => Math.floor(Math.random() * 8) + 2; // Por defecto 2-10
+    let getMaxWeight = (problemName) => Math.floor(Math.random() * 15) + 20; // Por defecto 20-35
+
+    // Casos especiales para temas
+    if (problemName === 'Ryanair') {
+        getWeight = () => Math.floor(Math.random() * 2) + 0.1; // 0.1-2.1 kg muy ligero
+        getMaxWeight = () => 8; // Muy poco peso permitido
+    } else if (problemName === 'Rey Emérito') {
+        getWeight = () => Math.floor(Math.random() * 200) + 50; // 50-250 kg (cosas pesadas)
+        getMaxWeight = () => Math.floor(Math.random() * 300) + 500; // 500-800 kg
+    } else if (problemName === 'CR7') {
+        getWeight = () => Math.floor(Math.random() * 5) + 1; // 1-6 kg (cosas de lujo, ligeras)
+        getMaxWeight = () => Math.floor(Math.random() * 20) + 30; // 30-50 kg
+    } else if (problemName === 'Florentino') {
+        getWeight = () => Math.floor(Math.random() * 1) + 0.8; // 0.8-1.8 kg cada jugador (metafórico)
+        getMaxWeight = () => Math.floor(Math.random() * 5) + 10; // 10-15 jugadores
+    }
+
+    const finalMaxWeight = getMaxWeight(problemName);
+
     const items = [];
     selectedItems.forEach((item, i) => {
-        const weight = Math.floor(Math.random() * 8) + 2; // 2-10 peso
+        const weight = problemName === 'Ryanair' 
+            ? parseFloat((Math.random() * 2 + 0.1).toFixed(1)) 
+            : problemName === 'Rey Emérito' 
+                ? Math.floor(Math.random() * 200) + 50 
+                : problemName === 'CR7'
+                    ? Math.floor(Math.random() * 5) + 1
+                    : problemName === 'Florentino'
+                        ? parseFloat((Math.random() * 1 + 0.8).toFixed(1))
+                        : Math.floor(Math.random() * 8) + 2;
+        
         const benefit = Math.floor(Math.random() * 15) + 5; // 5-20 beneficio
         const maxUnits = type === 'binary' ? 1 : Math.floor(Math.random() * 5) + 1; // 1 para binaria, 1-5 para múltiple
 
@@ -408,7 +580,7 @@ function generateProblem(type) {
     return {
         type,
         items,
-        maxWeight,
+        maxWeight: finalMaxWeight,
         numItems,
         name: problemName
     };
@@ -481,6 +653,36 @@ function initSortButtons() {
             renderItems();
         });
     });
+    
+    // Inicializar toggle de ratios
+    initToggleRatios();
+}
+
+function initToggleRatios() {
+    // Remover listeners anteriores
+    const toggleBtn = document.getElementById('toggle-ratios-btn');
+    if (toggleBtn) {
+        const newBtn = toggleBtn.cloneNode(true);
+        toggleBtn.parentNode.replaceChild(newBtn, toggleBtn);
+        
+        // Añadir nuevo listener
+        const newToggleBtn = document.getElementById('toggle-ratios-btn');
+        newToggleBtn.addEventListener('click', () => {
+            STATE.showRatios = !STATE.showRatios;
+            
+            // Cambiar apariencia del botón
+            if (STATE.showRatios) {
+                newToggleBtn.classList.add('active');
+                newToggleBtn.textContent = '👁️ Ratios';
+            } else {
+                newToggleBtn.classList.remove('active');
+                newToggleBtn.textContent = '🙈 Ratios';
+            }
+            
+            // Re-renderizar items
+            renderItems();
+        });
+    }
 }
 
 function sortItems(items, sortType, direction) {
@@ -518,12 +720,20 @@ function createItemElement(item) {
         ? `<span class="item-quantity ${availableQuantity === 0 ? 'disabled' : ''}">×${availableQuantity}</span>` 
         : '';
 
-    // Desabilitar si no hay unidades disponibles
+        // Desabilitar si no hay unidades disponibles
     const isDisabled = STATE.selectedType === 'multiple' && availableQuantity === 0;
     if (isDisabled) {
         div.classList.add('disabled');
         div.draggable = false;
     }
+
+    // Generar el HTML del ratio, ocultable
+    const ratioHtml = STATE.showRatios ? `
+                <div class="item-stat">
+                    <span>📊</span>
+                    <span>${item.ratio}</span>
+                </div>
+            ` : '';
 
     div.innerHTML = `
         <div class="item-icon">${item.icon}</div>
@@ -538,10 +748,7 @@ function createItemElement(item) {
                     <span>💰</span>
                     <span>${item.benefit}</span>
                 </div>
-                <div class="item-stat">
-                    <span>📊</span>
-                    <span>${item.ratio}</span>
-                </div>
+                ${ratioHtml}
             </div>
         </div>
         ${quantityHtml}
