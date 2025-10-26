@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problema de la Mochila - Documentación</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1a1f36);
+            color: #1e293b;
+            line-height: 1.8;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            color: #6366f1;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        h2 {
+            color: #ec4899;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            border-bottom: 3px solid #6366f1;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #6366f1;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        code {
+            background: #f8fafc;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #ec4899;
+            font-weight: 600;
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 15px;
+            border-left: 4px solid #f59e0b;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+
+        .link-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .link-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .problem-description {
+            background: #f8fafc;
+            border: 2px solid #6366f1;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .algorithm-box {
+            background: #f0f4ff;
+            border: 2px solid #6366f1;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background: #f0f4ff;
+            font-weight: 700;
+            color: #6366f1;
+        }
+
+        .comparison-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎒 Problema de la Mochila - Guía Completa</h1>
+
+        <h2>📚 ¿Qué es el Problema de la Mochila?</h2>
+        
+        <div class="problem-description">
+            <p>El <strong>problema de la mochila</strong> (Knapsack Problem) es uno de los problemas clásicos más importantes en:</p>
+            <ul>
+                <li>📊 <strong>Optimización:</strong> Maximizar o minimizar algo bajo restricciones</li>
+                <li>💻 <strong>Informática:</strong> Algoritmos y complejidad computacional</li>
+                <li>🏭 <strong>Investigación Operativa:</strong> Toma de decisiones</li>
+                <li>📦 <strong>Logística:</strong> Empaquetamiento y transporte</li>
+            </ul>
+        </div>
+
+        <h2>🎯 El Objetivo</h2>
+        <p>
+            Tienes una mochila con una capacidad máxima de peso. Tienes varios items, cada uno con:
+            <ul>
+                <li><strong>Peso:</strong> Cuánto ocupa</li>
+                <li><strong>Beneficio/Valor:</strong> Cuánto vale o te beneficia</li>
+            </ul>
+        </p>
+        <p>
+            <strong>Objetivo:</strong> Seleccionar items para llenar la mochila de manera que:
+            <ul>
+                <li>✅ El peso total NO exceda la capacidad máxima</li>
+                <li>✅ El beneficio total sea MÁXIMO</li>
+            </ul>
+        </p>
+
+        <h2>🔀 Variantes del Problema</h2>
+
+        <h3><span class="icon">📦</span> Mochila Binaria (0/1 Knapsack)</h3>
+        <p>Cada item se puede incluir <strong>0 o 1 vez</strong>. Es como preguntar: "¿Lo tomo o no lo tomo?"</p>
+        <ul>
+            <li>✓ Lo tomas completo</li>
+            <li>✗ No lo tomas</li>
+            <li>✗ No puedes tomar la mitad</li>
+            <li>✗ No puedes tomar más de uno</li>
+        </ul>
+
+        <h3><span class="icon">📚</span> Mochila Múltiple (Unbounded Knapsack)</h3>
+        <p>Cada item se puede incluir <strong>múltiples veces</strong>. Imagina que hay infinitas copias de cada item.</p>
+        <ul>
+            <li>✓ Puedes tomar 0 unidades</li>
+            <li>✓ Puedes tomar 1 unidad</li>
+            <li>✓ Puedes tomar 2 unidades</li>
+            <li>✓ Y tantas más como quepan</li>
+        </ul>
+
+        <h2>⚡ Algoritmo Voraz (Greedy Algorithm)</h2>
+        
+        <div class="algorithm-box">
+            <strong>Estrategia:</strong><br>
+            1. Calcula el RATIO para cada item: beneficio ÷ peso<br>
+            2. Ordena los items por RATIO (mayor primero)<br>
+            3. Toma items en ese orden mientras quepan<br>
+            <br>
+            <strong>Pseudo-código:</strong><br>
+            items = ordenar_por_ratio(items)<br>
+            para cada item en items:<br>
+            &nbsp;&nbsp;si (peso_actual + item.peso ≤ capacidad):<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;agregar_item(item)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;peso_actual += item.peso
+        </div>
+
+        <h2>📊 Ejemplo Práctico</h2>
+
+        <h3>Problema:</h3>
+        <p>
+            <strong>Mochila Binaria</strong><br>
+            Capacidad máxima: <strong>10 kg</strong>
+        </p>
+
+        <table class="comparison-table">
+            <tr>
+                <th>Item</th>
+                <th>Peso</th>
+                <th>Beneficio</th>
+                <th>Ratio (B/P)</th>
+            </tr>
+            <tr>
+                <td>💻 Laptop</td>
+                <td>3 kg</td>
+                <td>20</td>
+                <td><strong>6.67</strong></td>
+            </tr>
+            <tr>
+                <td>📚 Libro</td>
+                <td>2 kg</td>
+                <td>10</td>
+                <td><strong>5.00</strong></td>
+            </tr>
+            <tr>
+                <td>⌚ Reloj</td>
+                <td>1 kg</td>
+                <td>6</td>
+                <td><strong>6.00</strong></td>
+            </tr>
+            <tr>
+                <td>📷 Cámara</td>
+                <td>4 kg</td>
+                <td>15</td>
+                <td><strong>3.75</strong></td>
+            </tr>
+        </table>
+
+        <h3>Solución Voraz:</h3>
+        <ol>
+            <li>Ordena por ratio: Laptop (6.67) → Reloj (6.00) → Libro (5.00) → Cámara (3.75)</li>
+            <li>Toma Laptop: peso = 3, beneficio = 20 ✓</li>
+            <li>Toma Reloj: peso = 3+1 = 4, beneficio = 20+6 = 26 ✓</li>
+            <li>Toma Libro: peso = 4+2 = 6, beneficio = 26+10 = 36 ✓</li>
+            <li>Toma Cámara: peso = 6+4 = 10, beneficio = 36+15 = 51 ✓</li>
+            <li><strong>Resultado: Peso=10, Beneficio=51</strong></li>
+        </ol>
+
+        <div class="highlight">
+            <strong>⚠️ Importante:</strong> El algoritmo voraz es rápido pero NO siempre encuentra la solución óptima.
+            Es una "buena aproximación" que funciona bien en muchos casos pero puede fallar en otros.
+        </div>
+
+        <h2>🎮 Cómo Usar el Juego</h2>
+
+        <h3>1. Selecciona las Opciones</h3>
+        <p>En el menú principal, elige:</p>
+        <ul>
+            <li><strong>Tipo de problema:</strong> Binaria o Múltiple</li>
+            <li><strong>Dificultad:</strong> Fácil (50s), Medio (60s), Difícil (70s)</li>
+        </ul>
+
+        <h3>2. Juega</h3>
+        <p>Arrastra items a la mochila antes de que termine el tiempo. Intenta maximizar el beneficio.</p>
+        <ul>
+            <li>Panel izquierdo: Items disponibles</li>
+            <li>Centro: Tu mochila (arrastra aquí)</li>
+            <li>Derecha: Información del problema</li>
+        </ul>
+
+        <h3>3. Compara Resultados</h3>
+        <p>Al terminar el tiempo:</p>
+        <ul>
+            <li>Ver tu solución</li>
+            <li>Ver la solución del algoritmo voraz</li>
+            <li>Recibir retroalimentación</li>
+        </ul>
+
+        <h2>💡 Consejos para Jugar Bien</h2>
+
+        <ul>
+            <li><strong>Observa los ratios:</strong> Items con mayor beneficio/peso son más eficientes</li>
+            <li><strong>Calcula mentalmente:</strong> Suma rápido los pesos</li>
+            <li><strong>No llenes demasiado:</strong> A veces dejar espacio es estratégico</li>
+            <li><strong>Aprende del algoritmo:</strong> ¿Por qué eligió esos items?</li>
+            <li><strong>Intenta ganar:</strong> ¡Es posible ganarle al algoritmo voraz!</li>
+        </ul>
+
+        <h2>📈 Complejidad y Importancia</h2>
+
+        <div class="problem-description">
+            <p><strong>¿Por qué es importante este problema?</strong></p>
+            <ul>
+                <li>🎓 Es <strong>NP-completo</strong> (muy difícil de resolver óptimamente)</li>
+                <li>📦 Tiene aplicaciones reales: logística, inversión, manufactura</li>
+                <li>🔬 Enseña técnicas de optimización fundamentales</li>
+                <li>💻 Muchos algoritmos para resolverlo: voraz, DP, branch & bound</li>
+            </ul>
+        </div>
+
+        <h2>🔗 Enlaces Útiles</h2>
+        <ul>
+            <li>Wikipedia: <code>Knapsack problem</code></li>
+            <li>Algoritmos: Programación Dinámica, Algoritmos Voraces</li>
+            <li>Aplicaciones: Asignación de recursos, inversión en proyectos</li>
+        </ul>
+
+        <h2>📝 Resumen</h2>
+        <p>
+            Este juego te enseña el problema de la mochila de forma interactiva y divertida.
+            Entenderás la diferencia entre heurísticas y soluciones óptimas, y cómo los algoritmos
+            voraces pueden ser útiles pero no siempre perfectos.
+        </p>
+
+        <a href="index.html" class="link-button">🎮 Jugar Ahora</a>
+    </div>
+</body>
+</html>
