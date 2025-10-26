@@ -82,21 +82,23 @@
         }
 
         .link-button {
-            display: inline-block;
-            margin-top: 20px;
+            display: block;
+            width: fit-content;
+            margin: 40px auto 0;
             padding: 12px 30px;
-            background: linear-gradient(135deg, #6366f1, #ec4899);
+            background: linear-gradient(135deg, #f97316, #fb923c);
             color: white;
             text-decoration: none;
             border-radius: 8px;
             font-weight: 600;
             transition: all 0.3s ease;
             text-align: center;
+            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
         }
 
         .link-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
         }
 
         .problem-description {
@@ -325,14 +327,7 @@
             <li>Aplicaciones: Asignación de recursos, inversión en proyectos</li>
         </ul>
 
-        <h2>📝 Resumen</h2>
-        <p>
-            Este juego te enseña el problema de la mochila de forma interactiva y divertida.
-            Entenderás la diferencia entre heurísticas y soluciones óptimas, y cómo los algoritmos
-            voraces pueden ser útiles pero no siempre perfectos.
-        </p>
-
-        <a href="index.html" class="link-button">🎮 Jugar Ahora</a>
+        <a href="index.html" class="link-button">🎮 Volver al Juego</a>
     </div>
 </body>
 </html>
