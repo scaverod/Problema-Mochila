@@ -21,6 +21,7 @@ const STATE = {
 };
 
 // Items temáticos con emojis que coinciden
+// ÁMBITO: TECNOLOGÍA (unifica Gaming + Tech)
 const TECH_ITEMS = [
     { name: 'Laptop', emoji: '💻' },
     { name: 'Teléfono', emoji: '📱' },
@@ -31,61 +32,30 @@ const TECH_ITEMS = [
     { name: 'Monitor', emoji: '🖥️' },
     { name: 'Teclado', emoji: '⌨️' },
     { name: 'Ratón', emoji: '🖱️' },
-    { name: 'Consola', emoji: '🎮' }
+    { name: 'Consola', emoji: '🎮' },
+    { name: 'PS5', emoji: '�' },
+    { name: 'VR Headset', emoji: '🥽' },
+    { name: 'GPU RTX', emoji: '💻' }
 ];
 
+// ÁMBITO: COCINA (para binario y múltiple)
 const FOOD_ITEMS = [
-    { name: 'Manzana', emoji: '🍎' },
+    { name: 'Manzana', emoji: '�' },
     { name: 'Naranja', emoji: '🍊' },
-    { name: 'Plátano', emoji: '🍌' },
-    { name: 'Fresa', emoji: '🍓' },
-    { name: 'Sandía', emoji: '🍉' },
+    { name: 'Plátano', emoji: '�' },
+    { name: 'Fresa', emoji: '�' },
+    { name: 'Sandía', emoji: '�' },
     { name: 'Piña', emoji: '🍍' },
     { name: 'Limón', emoji: '🍋' },
     { name: 'Mango', emoji: '🥭' },
     { name: 'Cereza', emoji: '🍒' },
-    { name: 'Uva', emoji: '🍇' }
+    { name: 'Uva', emoji: '🍇' },
+    { name: 'Pan', emoji: '🍞' },
+    { name: 'Queso', emoji: '�' },
+    { name: 'Huevos', emoji: '🥚' }
 ];
 
-const GAMING_ITEMS = [
-    { name: 'PS5', emoji: '🎮' },
-    { name: 'Xbox', emoji: '🎮' },
-    { name: 'Nintendo Switch', emoji: '🎮' },
-    { name: 'VR Headset', emoji: '🥽' },
-    { name: 'Game Pass', emoji: '🎟️' },
-    { name: 'Controller', emoji: '🎮' },
-    { name: 'Headset Gaming', emoji: '🎧' },
-    { name: 'Monitor 144Hz', emoji: '🖥️' },
-    { name: 'GPU RTX', emoji: '💻' },
-    { name: 'Mousepad', emoji: '🖱️' }
-];
-
-const CLOTHING_ITEMS = [
-    { name: 'Camiseta', emoji: '👕' },
-    { name: 'Pantalón', emoji: '👖' },
-    { name: 'Chaqueta', emoji: '🧥' },
-    { name: 'Zapatos', emoji: '👟' },
-    { name: 'Calcetines', emoji: '🧦' },
-    { name: 'Gorro', emoji: '🧢' },
-    { name: 'Bufanda', emoji: '🧣' },
-    { name: 'Guantes', emoji: '🧤' },
-    { name: 'Suéter', emoji: '🧶' },
-    { name: 'Cinturón', emoji: '⌛' }
-];
-
-const CAMPING_ITEMS = [
-    { name: 'Tienda', emoji: '⛺' },
-    { name: 'Bolsa Dormir', emoji: '🛏️' },
-    { name: 'Linterna', emoji: '🔦' },
-    { name: 'Brújula', emoji: '🧭' },
-    { name: 'Mapa', emoji: '🗺️' },
-    { name: 'Cuerda', emoji: '🪢' },
-    { name: 'Navaja Suiza', emoji: '🔪' },
-    { name: 'Botella Agua', emoji: '🧉' },
-    { name: 'Mochila', emoji: '🎒' },
-    { name: 'Binoculares', emoji: '🔭' }
-];
-
+// ÁMBITO: DEPORTES (solo para binario)
 const SPORTS_ITEMS = [
     { name: 'Pelota Fútbol', emoji: '⚽' },
     { name: 'Raqueta Tenis', emoji: '🎾' },
@@ -99,6 +69,7 @@ const SPORTS_ITEMS = [
     { name: 'Bote Proteína', emoji: '🥤' }
 ];
 
+// ÁMBITO: MÚSICA (solo para binario)
 const MUSIC_ITEMS = [
     { name: 'Guitarra', emoji: '🎸' },
     { name: 'Teclado', emoji: '🎹' },
@@ -112,6 +83,7 @@ const MUSIC_ITEMS = [
     { name: 'Pedal Efectos', emoji: '🎚️' }
 ];
 
+// ÁMBITO: VIAJE (solo para binario)
 const TRAVEL_ITEMS = [
     { name: 'Pasaporte', emoji: '🛂' },
     { name: 'Maleta', emoji: '🧳' },
@@ -122,9 +94,10 @@ const TRAVEL_ITEMS = [
     { name: 'Botella Térmica', emoji: '🧊' },
     { name: 'Adaptador Viaje', emoji: '🔌' },
     { name: 'Almohada Cuello', emoji: '🛏️' },
-    { name: 'Pulsera Viaje', emoji: '⌚' }
+    { name: 'Guía Turística', emoji: '📖' }
 ];
 
+// ÁMBITO: OFICINA (solo para binario)
 const OFFICE_ITEMS = [
     { name: 'Laptop', emoji: '💻' },
     { name: 'Monitor', emoji: '🖥️' },
@@ -138,6 +111,7 @@ const OFFICE_ITEMS = [
     { name: 'Planta Oficina', emoji: '🌱' }
 ];
 
+// VARIACIONES ESPECIALES DE VIAJE
 const RYANAIR_ITEMS = [
     { name: 'Pasaporte', emoji: '🛂' },
     { name: 'Billete Avión', emoji: '🎟️' },
@@ -164,6 +138,7 @@ const REY_EMERITO_ITEMS = [
     { name: 'Pergamino Real', emoji: '📜' }
 ];
 
+// VARIACIONES ESPECIALES DE DEPORTES
 const CR7_ITEMS = [
     { name: 'Pelota de Oro', emoji: '⚽' },
     { name: 'Botines Nike', emoji: '👟' },
@@ -222,36 +197,41 @@ function setupEventListeners() {
         btn.addEventListener('click', selectDifficulty);
     });
 
-    // Theme selector
+    // Theme selector - Modal
     const themeSelectorBtn = document.getElementById('theme-selector-btn');
-    const themeDropdown = document.getElementById('theme-dropdown');
-    if (themeSelectorBtn && themeDropdown) {
+    const themeModal = document.getElementById('theme-modal');
+    const closeThemeModalBtn = document.getElementById('close-theme-modal');
+    const themeOptionsContainer = document.getElementById('theme-options-container');
+    
+    if (themeSelectorBtn && themeModal) {
+        // Abrir modal al click del botón
         themeSelectorBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            themeDropdown.classList.toggle('hidden');
-            themeSelectorBtn.classList.toggle('active');
+            themeModal.classList.remove('hidden');
+            updateThemeModal();
         });
-
-        // Use event delegation for theme options
-        themeDropdown.addEventListener('click', (e) => {
-            const themeOption = e.target.closest('.theme-option');
-            if (themeOption) {
-                e.stopPropagation();
-                STATE.selectedTheme = themeOption.dataset.theme;
-                document.getElementById('theme-display').textContent = themeOption.textContent;
-                themeDropdown.classList.add('hidden');
-                themeSelectorBtn.classList.remove('active');
+        
+        // Cerrar modal
+        closeThemeModalBtn.addEventListener('click', () => {
+            themeModal.classList.add('hidden');
+        });
+        
+        // Cerrar modal al click en backdrop
+        themeModal.querySelector('.theme-modal-backdrop').addEventListener('click', () => {
+            themeModal.classList.add('hidden');
+        });
+        
+        // Seleccionar tema
+        themeOptionsContainer.addEventListener('click', (e) => {
+            const themeOptionBtn = e.target.closest('.theme-option-btn');
+            if (themeOptionBtn) {
+                STATE.selectedTheme = themeOptionBtn.dataset.theme;
+                document.getElementById('theme-display').textContent = themeOptionBtn.dataset.label;
+                themeModal.classList.add('hidden');
+                updateStartButton();
             }
         });
     }
-
-    // Close theme dropdown when clicking outside
-    document.addEventListener('click', (e) => {
-        if (themeSelectorBtn && themeDropdown && !themeSelectorBtn.contains(e.target) && !themeDropdown.contains(e.target)) {
-            themeDropdown.classList.add('hidden');
-            themeSelectorBtn.classList.remove('active');
-        }
-    });
 
     document.getElementById('start-btn').addEventListener('click', startGame);
     document.getElementById('help-button').addEventListener('click', showInfo);
@@ -287,6 +267,13 @@ function selectType(e) {
     document.querySelectorAll('.type-btn').forEach(btn => btn.classList.remove('active'));
     e.target.closest('.type-btn').classList.add('active');
     STATE.selectedType = e.target.closest('.type-btn').dataset.type;
+    
+    // Resetear el tema a "al azar" cuando se cambia de tipo
+    STATE.selectedTheme = 'random';
+    const themeDisplay = document.getElementById('theme-display');
+    if (themeDisplay) {
+        themeDisplay.textContent = '🎲 Al azar';
+    }
     
     // Habilitar el selector de temas y actualizar opciones disponibles
     updateThemeSelector();
@@ -348,6 +335,50 @@ function updateThemeSelector() {
                 option.style.display = 'none';
             }
         }
+    });
+}
+
+function updateThemeModal() {
+    const themeOptionsContainer = document.getElementById('theme-options-container');
+    themeOptionsContainer.innerHTML = ''; // Limpiar
+    
+    // ÁMBITOS PARA BINARIO (todos tienen ejemplos definidos)
+    const binaryThemes = [
+        { theme: 'random', label: '🎲 Al azar' },
+        { theme: 'tech', label: '💻 Tecnología' },      // TECH_ITEMS
+        { theme: 'office', label: '🏢 Oficina' },       // OFFICE_ITEMS
+        { theme: 'travel', label: '✈️ Viaje' },         // TRAVEL_ITEMS + variaciones
+        { theme: 'cooking', label: '🍳 Cocina' },       // FOOD_ITEMS
+        { theme: 'sports', label: '⚽ Deportes' },      // SPORTS_ITEMS + variaciones
+        { theme: 'music', label: '🎸 Música' }          // MUSIC_ITEMS
+    ];
+    
+    // ÁMBITOS PARA MÚLTIPLE (solo cocina tiene ejemplos definidos)
+    const multipleThemes = [
+        { theme: 'random', label: '🎲 Al azar' },
+        { theme: 'cooking', label: '🍳 Cocina' }        // FOOD_ITEMS
+    ];
+    
+    const themesToShow = STATE.selectedType === 'binary' ? binaryThemes : multipleThemes;
+    
+    // Crear botones para cada tema
+    themesToShow.forEach(themeConfig => {
+        const btn = document.createElement('button');
+        btn.className = 'theme-option-btn';
+        btn.dataset.theme = themeConfig.theme;
+        btn.dataset.label = themeConfig.label;
+        
+        // Extraer emoji y label
+        const emojiMatch = themeConfig.label.match(/^(.*?)\s(.+)$/);
+        const emoji = emojiMatch ? emojiMatch[1] : '';
+        const text = emojiMatch ? emojiMatch[2] : themeConfig.label;
+        
+        btn.innerHTML = `
+            <span class="theme-option-emoji">${emoji}</span>
+            <span class="theme-option-label">${text}</span>
+        `;
+        
+        themeOptionsContainer.appendChild(btn);
     });
 }
 
@@ -437,47 +468,35 @@ function generateProblem(type) {
     const numItems = Math.floor(Math.random() * 5) + 8; // 8-12 items
     const maxWeight = Math.floor(Math.random() * 15) + 20; // 20-35 peso máximo
 
-    // Mapeo de temas seleccionables a nombres de problemas
+    // Mapeo de ámbitos seleccionables a nombres de problemas
     const themeMap = {
-        'random': null, // null significa elegir al azar
-        'office': 'Oficina',
-        'shopping': 'Compra',
-        'travel': 'Viaje',
-        'gaming': 'Gaming',
-        'tech': 'Tecnología',
-        'cooking': 'Cocina',
-        'library': 'Biblioteca',
-        'sports': 'Deportes'
+        'random': null,              // null = elegir al azar
+        'tech': 'Tecnología',        // TECH_ITEMS
+        'office': 'Oficina',         // OFFICE_ITEMS
+        'travel': 'Viaje',           // TRAVEL_ITEMS + variaciones
+        'cooking': 'Cocina',         // FOOD_ITEMS
+        'sports': 'Deportes',        // SPORTS_ITEMS + variaciones
+        'music': 'Música'            // MUSIC_ITEMS
     };
 
-    // Definir temáticas por nombre de problema
+    // Mapeo de nombres de problemas a arrays de items
     const themesByName = {
         'Tecnología': TECH_ITEMS,
-        'Gaming': GAMING_ITEMS,
-        'Ropa': CLOTHING_ITEMS,
-        'Camping': CAMPING_ITEMS,
         'Deportes': SPORTS_ITEMS,
         'Música': MUSIC_ITEMS,
         'Viaje': TRAVEL_ITEMS,
         'Oficina': OFFICE_ITEMS,
-        'Compra': CLOTHING_ITEMS,
         'Cocina': FOOD_ITEMS,
-        'Biblioteca': TECH_ITEMS,
-        'Frutas': FOOD_ITEMS,
-        'Comida Rápida': FOOD_ITEMS,
-        'Postre': FOOD_ITEMS,
-        'Bebidas': FOOD_ITEMS,
-        'Snacks': FOOD_ITEMS,
-        'Dulces': FOOD_ITEMS,
+        // Variaciones especiales
         'Ryanair': RYANAIR_ITEMS,
         'Rey Emérito': REY_EMERITO_ITEMS,
         'CR7': CR7_ITEMS,
         'Florentino': FLORENTINO_ITEMS
     };
 
-    // Nombres de problemas según tipo
-    const binaryNames = ['Tecnología', 'Gaming', 'Ropa', 'Camping', 'Deportes', 'Música', 'Viaje', 'Oficina', 'Compra', 'Cocina', 'Biblioteca'];
-    const multipleNames = ['Frutas', 'Comida Rápida', 'Postre', 'Bebidas', 'Snacks', 'Dulces'];
+    // Nombres de problemas disponibles según tipo
+    const binaryNames = ['Tecnología', 'Oficina', 'Viaje', 'Cocina', 'Deportes', 'Música'];
+    const multipleNames = ['Cocina']; // Solo cocina tiene ejemplos para múltiple
     
     // Variaciones especiales para temas
     const deportesVariations = ['Deportes', 'CR7', 'Florentino'];
