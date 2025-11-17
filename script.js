@@ -550,38 +550,31 @@ function generateProblem(type) {
     const selectedItems = shuffledItems.slice(0, numItems);
 
     // Configuración especial de pesos según el tema
-    let getWeight = (problemName) => Math.floor(Math.random() * 8) + 2; // Por defecto 2-10
-    let getMaxWeight = (problemName) => Math.floor(Math.random() * 15) + 20; // Por defecto 20-35
+    // Todos los pesos se redondearán a un único decimal.
+    const WEIGHT_INCREMENT = 0.5; // Valor para incrementar si hace falta (configurable)
+    let getWeight = (problemName) => parseFloat((Math.random() * 8 + 2).toFixed(1)); // Por defecto 2.0-9.9
+    let getMaxWeight = (problemName) => Math.floor(Math.random() * 15) + 20; // Por defecto 20-34
 
     // Casos especiales para temas
     if (problemName === 'Ryanair') {
-        getWeight = () => Math.floor(Math.random() * 2) + 0.1; // 0.1-2.1 kg muy ligero
+        getWeight = () => parseFloat((Math.random() * 2 + 0.1).toFixed(1)); // 0.1-2.1 kg muy ligero
         getMaxWeight = () => 8; // Muy poco peso permitido
     } else if (problemName === 'Rey Emérito') {
-        getWeight = () => Math.floor(Math.random() * 200) + 50; // 50-250 kg (cosas pesadas)
-        getMaxWeight = () => Math.floor(Math.random() * 300) + 500; // 500-800 kg
+        getWeight = () => parseFloat((Math.floor(Math.random() * 200) + 50).toFixed(1)); // 50-249 kg (cosas pesadas)
+        getMaxWeight = () => Math.floor(Math.random() * 300) + 500; // 500-799 kg
     } else if (problemName === 'CR7') {
-        getWeight = () => Math.floor(Math.random() * 5) + 1; // 1-6 kg (cosas de lujo, ligeras)
-        getMaxWeight = () => Math.floor(Math.random() * 20) + 30; // 30-50 kg
+        getWeight = () => parseFloat((Math.floor(Math.random() * 6) + 1).toFixed(1)); // 1-6 kg (ajustado a 1-6)
+        getMaxWeight = () => Math.floor(Math.random() * 20) + 30; // 30-49 kg
     } else if (problemName === 'Florentino') {
-        getWeight = () => Math.floor(Math.random() * 1) + 0.8; // 0.8-1.8 kg cada jugador (metafórico)
-        getMaxWeight = () => Math.floor(Math.random() * 5) + 10; // 10-15 jugadores
+        getWeight = () => parseFloat((Math.random() * 1 + 0.8).toFixed(1)); // 0.8-1.8 kg cada jugador (metafórico)
+        getMaxWeight = () => Math.floor(Math.random() * 5) + 10; // 10-14 jugadores
     }
 
     const finalMaxWeight = getMaxWeight(problemName);
 
     const items = [];
     selectedItems.forEach((item, i) => {
-        const weight = problemName === 'Ryanair' 
-            ? parseFloat((Math.random() * 2 + 0.1).toFixed(1)) 
-            : problemName === 'Rey Emérito' 
-                ? Math.floor(Math.random() * 200) + 50 
-                : problemName === 'CR7'
-                    ? Math.floor(Math.random() * 5) + 1
-                    : problemName === 'Florentino'
-                        ? parseFloat((Math.random() * 1 + 0.8).toFixed(1))
-                        : Math.floor(Math.random() * 8) + 2;
-        
+        const weight = getWeight(problemName);
         const benefit = Math.floor(Math.random() * 15) + 5; // 5-20 beneficio
         const maxUnits = type === 'binary' ? 1 : Math.floor(Math.random() * 5) + 1; // 1 para binaria, 1-5 para múltiple
 
@@ -592,9 +585,41 @@ function generateProblem(type) {
             weight,
             benefit,
             maxUnits,
-            ratio: (benefit / weight).toFixed(2)
+            ratio: parseFloat((benefit / weight).toFixed(2))
         });
     });
+
+    // Comprobar que NO todos los elementos entran en la mochila y que sobran más de 1 elemento.
+    // Si todos entran, o solo falta 1 elemento, incrementamos el peso de cada item en WEIGHT_INCREMENT
+    // hasta que al menos 2 elementos no quepan.
+    const maxIterations = 20;
+    let iter = 0;
+    const recomputeTotals = () => {
+        const totalWeight = items.reduce((s, it) => s + it.weight, 0);
+        const minWeight = Math.min(...items.map(it => it.weight));
+        return { totalWeight, minWeight };
+    };
+
+    let { totalWeight, minWeight } = recomputeTotals();
+    while (iter < maxIterations) {
+        // Caso: todos entran
+        if (totalWeight <= finalMaxWeight) {
+            // incrementar todos y volver a comprobar
+        } else if ((totalWeight - minWeight) <= finalMaxWeight) {
+            // Solo falta 1 elemento
+        } else {
+            break; // ya se cumple que sobran al menos 2 elementos
+        }
+
+        // Incrementar cada peso y recalcular ratio
+        items.forEach(it => {
+            it.weight = parseFloat((it.weight + WEIGHT_INCREMENT).toFixed(1));
+            it.ratio = parseFloat((it.benefit / it.weight).toFixed(2));
+        });
+
+        ({ totalWeight, minWeight } = recomputeTotals());
+        iter++;
+    }
 
     return {
         type,
@@ -761,7 +786,7 @@ function createItemElement(item) {
             <div class="item-stats">
                 <div class="item-stat">
                     <span>⚖️</span>
-                    <span>${item.weight}kg</span>
+                    <span>${item.weight.toFixed(1)}kg</span>
                 </div>
                 <div class="item-stat">
                     <span>💰</span>
@@ -885,8 +910,8 @@ function updateKnapsackDisplay() {
     const benefit = calculateKnapsackBenefit();
     const maxWeight = STATE.currentProblem.maxWeight;
 
-    document.getElementById('current-weight').textContent = weight;
-    document.getElementById('max-weight').textContent = maxWeight;
+    document.getElementById('current-weight').textContent = (typeof weight === 'number') ? weight.toFixed(1) : weight;
+    document.getElementById('max-weight').textContent = (typeof maxWeight === 'number') ? parseFloat(maxWeight).toFixed(1) : maxWeight;
     document.getElementById('current-benefit').textContent = benefit;
 
     // Mostrar/ocultar advertencia
@@ -915,9 +940,10 @@ function removeFromKnapsack(itemId) {
 }
 
 function calculateKnapsackWeight() {
-    return STATE.knapsackItems.reduce((total, item) => {
+    const total = STATE.knapsackItems.reduce((total, item) => {
         return total + (item.weight * (item.quantity || 1));
     }, 0);
+    return parseFloat(total.toFixed(1));
 }
 
 function calculateKnapsackBenefit() {
@@ -941,7 +967,7 @@ function showProblemInfo() {
     let html = `
         <div class="info-stat">
             <div class="info-stat-label">Peso Máximo</div>
-            <div class="info-stat-value">${maxWeight} kg</div>
+            <div class="info-stat-value">${(typeof maxWeight === 'number') ? parseFloat(maxWeight).toFixed(1) : maxWeight} kg</div>
         </div>
         <div class="info-stat">
             <div class="info-stat-label">Número de Items</div>
@@ -956,7 +982,7 @@ function showProblemInfo() {
             ${items.map(item => `
                 <div class="item-break">
                     <span>${item.icon} ${item.name}</span>
-                    <span>P:${item.weight} B:${item.benefit}</span>
+                    <span>P:${item.weight.toFixed(1)} B:${item.benefit}</span>
                 </div>
             `).join('')}
         </div>
@@ -1274,12 +1300,12 @@ function showResults(greedySolution) {
     const greedyBenefit = greedySolution.benefit;
 
     // Mostrar tu solución
-    document.getElementById('your-weight').textContent = yourWeight;
+    document.getElementById('your-weight').textContent = (typeof yourWeight === 'number') ? yourWeight.toFixed(1) : yourWeight;
     document.getElementById('your-benefit').textContent = yourBenefit;
     renderSolutionItems('your-items', STATE.knapsackItems);
 
     // Mostrar solución voraz
-    document.getElementById('greedy-weight').textContent = greedyWeight;
+    document.getElementById('greedy-weight').textContent = (typeof greedyWeight === 'number') ? greedyWeight.toFixed(1) : greedyWeight;
     document.getElementById('greedy-benefit').textContent = greedyBenefit;
     renderSolutionItems('greedy-items', greedySolution.items);
 
@@ -1330,7 +1356,7 @@ function renderSolutionItems(elementId, items) {
             <div class="solution-item-name">${item.icon} ${item.name}</div>
             <div style="display: flex; gap: 10px; align-items: center;">
                 ${STATE.selectedType === 'multiple' ? `<span class="solution-item-quantity">×${item.quantity}</span>` : ''}
-                <span style="color: var(--text-light); font-size: 0.9rem;">P:${item.weight} B:${item.benefit}</span>
+                        <span style="color: var(--text-light); font-size: 0.9rem;">P:${item.weight.toFixed(1)} B:${item.benefit}</span>
             </div>
         `;
         container.appendChild(div);
