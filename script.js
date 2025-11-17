@@ -33,25 +33,25 @@ const TECH_ITEMS = [
     { name: 'Teclado', emoji: '⌨️' },
     { name: 'Ratón', emoji: '🖱️' },
     { name: 'Consola', emoji: '🎮' },
-    { name: 'PS5', emoji: '�' },
+    { name: 'PS5', emoji: '🕹️' },
     { name: 'VR Headset', emoji: '🥽' },
     { name: 'GPU RTX', emoji: '💻' }
 ];
 
 // ÁMBITO: COCINA (para binario y múltiple)
 const FOOD_ITEMS = [
-    { name: 'Manzana', emoji: '�' },
+    { name: 'Manzana', emoji: '🍎' },
     { name: 'Naranja', emoji: '🍊' },
-    { name: 'Plátano', emoji: '�' },
-    { name: 'Fresa', emoji: '�' },
-    { name: 'Sandía', emoji: '�' },
+    { name: 'Plátano', emoji: '🍌' },
+    { name: 'Fresa', emoji: '🍓' },
+    { name: 'Sandía', emoji: '🍉' },
     { name: 'Piña', emoji: '🍍' },
     { name: 'Limón', emoji: '🍋' },
     { name: 'Mango', emoji: '🥭' },
     { name: 'Cereza', emoji: '🍒' },
     { name: 'Uva', emoji: '🍇' },
     { name: 'Pan', emoji: '🍞' },
-    { name: 'Queso', emoji: '�' },
+    { name: 'Queso', emoji: '🧀' },
     { name: 'Huevos', emoji: '🥚' }
 ];
 

@@ -159,14 +159,14 @@ const EJEMPLO_5 = {
   items: [
     { nombre: "Camiseta", peso: 1, beneficio: 4, ratio: "4.00", emoji: "👕" },
     { nombre: "Pantalón", peso: 2, beneficio: 8, ratio: "4.00", emoji: "👖" },
-    { nombre: "Zapatos", peso: 2, beneficio: 7, ratio: "3.50", emoji: "�" },
+    { nombre: "Zapatos", peso: 2, beneficio: 7, ratio: "3.50", emoji: "👟" },
     { nombre: "Chaqueta", peso: 3, beneficio: 12, ratio: "4.00", emoji: "🧥" },
     { nombre: "Gorro", peso: 1, beneficio: 3, ratio: "3.00", emoji: "🧢" },
     { nombre: "Calcetines", peso: 1, beneficio: 2, ratio: "2.00", emoji: "🧦" },
     { nombre: "Bufanda", peso: 1, beneficio: 5, ratio: "5.00", emoji: "🧣" },
     { nombre: "Cinturón", peso: 1, beneficio: 3, ratio: "3.00", emoji: "⛓️" },
-    { nombre: "Medias", peso: 1, beneficio: 2, ratio: "2.00", emoji: "�" },
-    { nombre: "Guantes", peso: 1, beneficio: 4, ratio: "4.00", emoji: "�" }
+    { nombre: "Medias", peso: 1, beneficio: 2, ratio: "2.00", emoji: "🧦" },
+    { nombre: "Guantes", peso: 1, beneficio: 4, ratio: "4.00", emoji: "🧤" }
   ]
 };
 
@@ -286,7 +286,7 @@ const EJEMPLO_12 = {
     { nombre: "Libro Pequeño", peso: 1, beneficio: 4, maxUnidades: 5, ratio: "4.00", emoji: "📗" },
     { nombre: "Revista", peso: 1, beneficio: 3, maxUnidades: 6, ratio: "3.00", emoji: "📰" },
     { nombre: "Periódico", peso: 1, beneficio: 2, maxUnidades: 6, ratio: "2.00", emoji: "📄" },
-    { nombre: "Cuaderno", peso: 1, beneficio: 3, maxUnidades: 5, ratio: "3.00", emoji: "�" }
+    { nombre: "Cuaderno", peso: 1, beneficio: 3, maxUnidades: 5, ratio: "3.00", emoji: "📓" }
   ]
 };
 
