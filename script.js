@@ -940,10 +940,11 @@ function removeFromKnapsack(itemId) {
 }
 
 function calculateKnapsackWeight() {
-    const total = STATE.knapsackItems.reduce((total, item) => {
+    // Devolver la suma real (precisa) para las comprobaciones internas.
+    // El formateo a 1 decimal se hace sólo en las vistas/elementos UI.
+    return STATE.knapsackItems.reduce((total, item) => {
         return total + (item.weight * (item.quantity || 1));
     }, 0);
-    return parseFloat(total.toFixed(1));
 }
 
 function calculateKnapsackBenefit() {
