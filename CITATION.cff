@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "Problema-Mochila - Interactive Knapsack Problem Visualizer"
+abstract: "Interactive educational game for learning the Knapsack Problem (0/1 and unbounded) using a greedy algorithm approach with real-time visualization."
+authors:
+  - family-names: "Cavero"
+    given-names: "Sergio"
+    email: sergio.cavero@urjc.es
+    orcid: "https://orcid.org/0000-0002-5258-5915"
+    affiliation: "Universidad Rey Juan Carlos"
+repository-code: "https://github.com/scaverod/Problema-Mochila"
+keywords:
+  - knapsack-problem
+  - 0/1-knapsack
+  - unbounded-knapsack
+  - greedy-algorithm
+  - optimization
+  - educational-software
+  - visualization
+  - interactive-learning
+license: MIT
+version: 1.0.0
+date-released: 2025-11-19
